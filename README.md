@@ -8,7 +8,7 @@ Este proyecto es una API REST para la gestión básica de tareas personales, dis
 
 ## Lógica de negocio
 
-- Los usuarios pueden registrarse usando su correo electrónico y una contraseña.
+- Los usuarios pueden registrarse usando su nombre apellido, correo electrónico y una contraseña.
 - Una vez autenticados mediante JWT, pueden gestionar sus tareas personales.
 - Cada tarea tiene un título obligatorio y una descripción opcional.
 - Las tareas pueden marcarse como completadas o pendientes.
@@ -19,7 +19,7 @@ Este proyecto es una API REST para la gestión básica de tareas personales, dis
 ## Requisitos funcionales
 
 1. **Gestión de usuarios**
-   - Registro con email y contraseña.
+   - Registro con nombre, apellido, email y contraseña.
    - Login que devuelve un token JWT para autenticar solicitudes.
 
 2. **Gestión de tareas**

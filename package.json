@@ -2,8 +2,11 @@
   "name": "to-do-list",
   "version": "1.0.0",
   "description": "## Descripción",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +21,9 @@
   },
   "homepage": "https://github.com/AndersonTaday2001/To-Do-List#readme",
   "dependencies": {
+    "cors": "2.8.5",
     "dotenv": "16.5.0",
-    "express": "5.1.0"
+    "express": "5.1.0",
+    "mysql2": "3.14.1"
   }
 }

@@ -11,11 +11,11 @@
 
 
 ## Como ejecutarlo
-‑ Instalar dependencias npm**
+‑ Instalar dependencias npm
 $ npm install
-- Copia la plantilla .env.example y crea tu propio .env**
+- Copia la plantilla .env.example y crea tu propio .env
 $ cp .env.example .env
-- Levantar únicamente MySQL con Docker Compose**
+- Levantar únicamente MySQL con Docker Compose
 $ docker compose up -d
 
 ## Descripción

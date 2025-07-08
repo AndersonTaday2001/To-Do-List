@@ -1,5 +1,23 @@
 # API de Gestión de Tareas (To-Do List) con Usuarios
 
+
+## Tecnologías
+- **Node.js (v20 +)**
+- **Express**
+- **MySQL 8** (Docker image oficial)
+- **Docker & Docker Compose**
+- **dotenv** para variables de entorno
+- **ES Modules**
+
+
+## Como ejecutarlo
+‑ Instalar dependencias npm
+$ npm install
+- Copia la plantilla .env.example y crea tu propio .env
+$ cp .env.example .env
+- Levantar únicamente MySQL con Docker Compose
+$ docker compose up -d
+
 ## Descripción
 
 Este proyecto es una API REST para la gestión básica de tareas personales, diseñada para usuarios registrados. Permite crear cuentas, iniciar sesión y administrar tareas propias, con funcionalidades para crear, listar, actualizar y eliminar tareas. La API está organizada de forma modular y con versionado para facilitar mantenimiento y futuras mejoras.

@@ -17,6 +17,7 @@ const userController = {
   logoutUser: (req, res) => {
     res.send("logout User");
   },
+  
   deleteUser: (req, res) => {
     res.send("Delete User");
   },

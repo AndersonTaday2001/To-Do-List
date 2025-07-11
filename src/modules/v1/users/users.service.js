@@ -1,14 +1,25 @@
 import bcrypt from "bcrypt";
 import getDatabase from "../../../config/dataBase.js";
+import userSchema from "./users.validator.js";
 
 const serviceUser = {
   register: async ({ firstName, lastName, email, password }) => {
+    
+    const { error } = userSchema.validate({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+    if (error) throw new Error(error.details[0].message);
+    
     const db = getDatabase();
 
     const existing = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
-    if (existing.length > 0) throw new Error("User existing");
+    
+    if (existing.length > 0) throw new Error("Correo ya en uso");
 
     const hashedPassword = await bcrypt.hash(password, 10);
 

@@ -44,7 +44,7 @@ const serviceUser = {
 
   },
   logout: () => {
-    
+    return "User logged out successfully";
   },
   jwt: (user) => {
     const token = jwt.sign(

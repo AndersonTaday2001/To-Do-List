@@ -29,7 +29,19 @@ const userController = {
   },
 
   logoutUser: (req, res) => {
-    res.send("logout User");
+    try {
+      const message = serviceUser.logout();
+      res
+        .clearCookie('access_token',{
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        .status(200)
+        .json({ message });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   },
 };
 

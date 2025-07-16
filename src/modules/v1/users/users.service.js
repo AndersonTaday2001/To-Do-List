@@ -1,4 +1,3 @@
-import "dotenv/config";
 import bcrypt from "bcrypt";
 import getDatabase from "../../../config/dataBase.js";
 import userSchema from "./users.validator.js";

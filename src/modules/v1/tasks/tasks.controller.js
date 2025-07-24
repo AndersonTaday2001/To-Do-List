@@ -1,4 +1,5 @@
 import serviceTask from "./tasks.service.js";
+import taskSchema from "./tasks.validator.js";
 
 const taskController = {
   getAllTasks: async (req, res) => {
@@ -24,6 +25,11 @@ const taskController = {
 
   updateTasks:async  (req, res) => {
     try {
+      const { error: paramError, value: paramValue } = taskSchema.params.validate(req.params);
+      if (paramError) {
+        return res.status(400).json({ message: paramError.details[0].message });
+      }
+
       const userId = req.user.userId;
       const { taskId } = req.params;
       const { title, description, status } = req.body;
@@ -43,6 +49,11 @@ const taskController = {
 
   deleteTasks: async (req, res) => {
     try {
+
+      const { error, value } = taskSchema.params.validate(req.params);
+      if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+      }
       const userId = req.user.userId;
       const { taskId } = req.params;
 

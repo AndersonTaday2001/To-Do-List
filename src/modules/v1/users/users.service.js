@@ -6,16 +6,13 @@ import jwt from "jsonwebtoken";
 const db = getDatabase();
 
 const serviceUser = {
-  register: async ({ firstName, lastName, email, password }) => {
+  register: async (userData) => {
   
-    const { error } = userSchema.validate({
-      firstName,
-      lastName,
-      email,
-      password,
-    });
-    if (error) throw new Error(error.details[0].message);
-    
+    const { error, value } = userSchema.register.validate(userData);
+    if (error) {
+      throw new Error(error.details[0].message);
+    }
+    const { firstName, lastName, email, password } = value;
 
     const rows = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     if (rows.length > 0) throw new Error("Correo ya en uso");
@@ -29,7 +26,14 @@ const serviceUser = {
 
     return { firstName, lastName, email};
   },
-  login: async( {email, password}) => {
+  login: async(loginData) => {
+
+    const { error, value } = userSchema.login.validate(loginData);
+    if (error) {
+      throw new Error(error.details[0].message);
+    }
+
+    const { email, password } = value;
 
     const rows = await db.query("SELECT * FROM users WHERE email = ?", [email]);
     if (rows.length === 0) throw new Error("Correo no encontrado");

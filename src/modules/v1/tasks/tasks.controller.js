@@ -14,7 +14,14 @@ const taskController = {
 
   createTasks: async (req, res) => {
     try {
+
+      const { error, value } = taskSchema.create.validate(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
       const userId = req.user.userId;
+      console.log("User ID:", userId);
       const { title, description } = req.body;
       const task = await serviceTask.create({ title, description, userId });
       res.status(201).json(task);
@@ -49,16 +56,13 @@ const taskController = {
 
   deleteTasks: async (req, res) => {
     try {
-
-      const { error, value } = taskSchema.params.validate(req.params);
-      if (error) {
-        return res.status(400).json({ message: error.details[0].message });
-      }
       const userId = req.user.userId;
+      console.log("User ID:", userId);
       const { taskId } = req.params;
+      console.log("Task ID:", taskId);
 
-      const result = await serviceTask.delete(taskId, userId);
-      res.status(200).json(result);
+      //const result = await serviceTask.delete(taskId, userId);
+      //res.status(200).json(result);
     } catch (error) {
        res.status(400).json({ message: error.message });
     }

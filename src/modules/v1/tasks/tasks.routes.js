@@ -7,7 +7,7 @@ const router = Router();
 router.use(verifyToken);
 router.get("/allTasks",taskController.getAllTasks);
 router.post("/createTask", taskController.createTasks);
-router.patch("/updateTask", taskController.updateTasks);
-router.delete("/deleteTask", taskController.deleteTasks);
+router.patch("/updateTask/:taskId", taskController.updateTasks);
+router.delete("/deleteTask/:taskId", taskController.deleteTasks);
 
 export default router;

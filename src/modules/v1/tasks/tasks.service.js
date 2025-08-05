@@ -5,32 +5,37 @@ const db = getDatabase();
 
 const serviceTask = {
     all:async(userId) => {
-        const rows = await db.query("SELECT * FROM tasks WHERE user_Id = ?", [userId]);
+        const rows = await db.query("SELECT id, title, description, status, created_at FROM tasks WHERE user_id = ? AND is_deleted = FALSE ORDER BY created_at DESC", [userId]);
         return rows || [];
     },
-    create: async(taskData) =>{
-        const { error, value } = taskSchema.create.validate(taskData);
+    create: async({ title, description, userId }) =>{
+        const { error, value } = taskSchema.create.validate({ title, description});
         if (error) {
             throw new Error(error.details[0].message);
         }
-        const { title, description, userId } = value;
+        const { title: validTitle, description: validDescription } = value;
 
         const result = await db.query(
             "INSERT INTO tasks (title, description, user_id) VALUES (?, ?, ?)",
-            [title, description, userId]
+            [validTitle, validDescription, userId]
         );
-        return {result, userId };
+        return { 
+            
+            title: validTitle, 
+            description: validDescription,
+            message: "Tarea creada exitosamente" 
+        };;
     },
-    update: async(updateData) => {
-        const { error, value } = taskSchema.update.validate(updateData);
+    update: async({title, description, status, taskId, userId }) => {
+        const { error, value } = taskSchema.update.validate({title, description, status});
         if (error) {
             throw new Error(error.details[0].message);
         }
-        const { title, description, status, taskId, userId } = value;
+        const { title: validTitle, description:validDescription, status:validStatus } = value;
 
          const result = await db.query(
             "UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ? AND user_id = ?",
-            [title, description, status, taskId, userId] 
+            [validTitle, validDescription, validStatus, taskId, userId] 
         );
         if (result.affectedRows === 0) throw new Error("Task not found or does not belong to this user");
         return { result };
